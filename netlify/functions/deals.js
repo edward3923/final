@@ -1,4 +1,4 @@
-// Goal: Kellogg deals API
+// Goal: Kellogg Deals API that returns all the data we want in JSON format
 //
 // Business logic:
 // - Database should probably have 2 tables - users table and deals table
