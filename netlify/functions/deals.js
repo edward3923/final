@@ -1,9 +1,9 @@
 // Goal: Kellogg Deals API that returns all the data we want in JSON format
 //
 // Business logic:
-// - Database should probably have 2 tables - users table and deals table
-// - In the users table, it should store the Identifier, the User UID, the name of the user (if possible)
-// - In the deals table, it should store the ID of the submitter, imgSrc, description, cost, and numLikes
+// - Database should probably have 2 tables - likes table and deals table
+// - In the likes table, it should store the User UID and postId
+// - In the deals table, it should store the dateCreated, userName, imgSrc, description, cost, and numLikes
 //
 // Tasks:
 // - Write an API endpiont, using lambda function, that returns information on all the available deals (see courses.js in hw7)
@@ -11,12 +11,11 @@
 // Deals [
 //   {
 //     userName
-//     deal {
-//       imgSrc
-//       description
-//       cost
-//       numLikes
-//     }
+//     imgSrc
+//     description
+//     cost
+//     numLikes
+//     dateCreated
 //   }
 // ]
 
