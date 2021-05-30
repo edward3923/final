@@ -13,3 +13,5 @@ Kellogg Deals is a site where Kellogg students can come to see the deals that ot
 - Weber Lu
 - Edward Nagai
 - Kevin Wilson
+    - To do:
+        - Calculate and show likes

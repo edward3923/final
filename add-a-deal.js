@@ -17,12 +17,29 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
 let submitButton = document.querySelector(`#submitbutton`)
 
-// handle the add deal button
-submitButton.addEventListener(`click`, function(event) {
- event.preventDefault()
+// handle the submit button
+submitButton.addEventListener(`click`, async function(event) {
+// event.preventDefault()
 console.log(`submit clicked`)
-  // redirect to the add-a-deal site
+  
+  let imageUrlInput = document.querySelector(`#imageUrl`)
+  let descriptionInput = document.querySelector(`#description`)
+  let costInput = document.querySelector(`#cost`)
+
+  // store the user-inputted image URL in memory
+  let imageUrl = imageUrlInput.value
+  let description = descriptionInput.value
+  let cost = costInput.value
+  // create the URL for our "create post" lambda function
+  let url = `/.netlify/functions/add_deals?imageUrl=${imageUrl}&description=${description}&cost=${cost}`
+  // let url = `/.netlify/functions/add_deals?imageUrl=${userName}`
+
+   // fetch the URL, wait for the response, store the response in memory
+   let response = await fetch(url)
+
+   // redirect to the add-a-deal site
   document.location.href = `index.html`
+  
   })
 
 } else {

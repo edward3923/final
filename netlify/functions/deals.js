@@ -27,16 +27,15 @@ exports.handler = async function(event) {
     // establish a connection to firebase in memory
     let db = firebase.firestore()
 
-    // perform a query against firestore for all posts, wait for it to return, store in memory
-    let dealsQuery = await db.collection(`deals`).orderBy(`created`, `desc`).get()
-  
+    // perform a query against firestore for all deals, wait for it to return, store in memory
+    let dealsQuery = await db.collection(`deals`).get()
     // retrieve the documents from the query
     let deals = dealsQuery.docs
-console.log(deals)
+
 // loop through the post documents
 for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
   // get the id from the document
-  let dealId = deals[dealIndex].id
+  let dealId = deals[dealsIndex].id
 
   // get the data from the document
   let dealData = deals[dealsIndex].data()
@@ -58,7 +57,6 @@ for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
 
   // add the Object to the return value
   returnValue.push(postObject)
-console.log(postObject)
 }
   return {
     statusCode: 200,

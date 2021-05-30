@@ -35,12 +35,48 @@ firebase.auth().onAuthStateChanged(async function(user) {
 let addDealButton = document.querySelector(`.add-deal-button`)
 
 // handle the add deal button
-addDealButton.addEventListener(`click`, function(event) {
+addDealButton.addEventListener(`click`, async function(event) {
   event.preventDefault()
-console.log(`add deal clicked`)
   // redirect to the add-a-deal site
   document.location.href = `add-a-deal.html`
+  // Build the URL for our posts API
 })
+
+  let url = `/.netlify/functions/deals`
+
+  // Fetch the url, wait for a response, store the response in memory
+  let response = await fetch(url)
+
+  // Ask for the json-formatted data from the response, wait for the data, store it in memory
+  let json = await response.json()
+
+  let dealsDiv = document.querySelector(`.deals`)
+
+  // Loop through the JSON data, for each Object representing a post:
+  for (let i=0; i < json.length; i++) {
+    // Store each object ("post") in memory
+    let deal = json[i]
+
+    // Store the post's ID in memory
+    let imageLink = deal.imgSrc
+    let description = deal.description
+    let cost = deal.cost
+    dealsDiv.insertAdjacentHTML(`beforeend`, `
+        <div class="md:mt-16 mt-8">
+          <div class="md:mx-0 mx-4 mt-8">
+            <span class="font-bold text-xl">${description}</span>
+          </div>
+
+          <div class="md:mx-0 mx-4 mt-8">
+            <span class="font-bold text-xl">${cost}</span>
+          </div>
+
+          <div class="my-8">
+            <img src="${imageLink}" class="w-16">
+          </div>
+`)
+  }
+
 
   } else {
     // Signed out
