@@ -14,33 +14,33 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // Signed in
     console.log('signed in')
 
- // Build the markup for the sign-out button and set the HTML in the header
- document.querySelector(`.sign-in-or-sign-out`).innerHTML = `
- <button class="text-pink-500 underline sign-out">Sign Out</button>
-`
+  // Build the markup for the sign-out button and set the HTML in the header
+  document.querySelector(`.sign-in-or-sign-out`).innerHTML = `
+  <button class="text-pink-500 underline sign-out">Sign Out</button>
+  `
 
-    // get a reference to the sign out button
-   let signOutButton = document.querySelector(`.sign-in-or-sign-out`)
+  // get a reference to the sign out button
+  let signOutButton = document.querySelector(`.sign-in-or-sign-out`)
 
-   // handle the sign out button click
-   signOutButton.addEventListener(`click`, function(event) {
-     // sign out of firebase authentication
-     firebase.auth().signOut()
+  // handle the sign out button click
+  signOutButton.addEventListener(`click`, function(event) {
+    // sign out of firebase authentication
+    firebase.auth().signOut()
 
-     // redirect to the home page
-     document.location.href = `index.html`
-   })
+    // redirect to the home page
+    document.location.href = `index.html`
+  })
 
-// get a reference to the add deal button
-let addDealButton = document.querySelector(`.add-deal-button`)
+  // get a reference to the add deal button
+  let addDealButton = document.querySelector(`.add-deal-button`)
 
-// handle the add deal button
-addDealButton.addEventListener(`click`, async function(event) {
-  event.preventDefault()
-  // redirect to the add-a-deal site
-  document.location.href = `add-a-deal.html`
-  // Build the URL for our posts API
-})
+  // handle the add deal button
+  addDealButton.addEventListener(`click`, async function(event) {
+    event.preventDefault()
+    // redirect to the add-a-deal site
+    document.location.href = `add-a-deal.html`
+    // Build the URL for our posts API
+  })
 
   let url = `/.netlify/functions/deals`
 
@@ -74,8 +74,10 @@ addDealButton.addEventListener(`click`, async function(event) {
           <div class="my-8">
             <img src="${imageLink}" class="w-16">
           </div>
-`)
+    `)
   }
+
+
 
 
   } else {
@@ -96,4 +98,5 @@ addDealButton.addEventListener(`click`, async function(event) {
     // Starts FirebaseUI Auth
     ui.start('.sign-in-or-sign-out', authUIConfig)
   }
+
 })
