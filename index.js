@@ -75,6 +75,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
             <img src="${imageLink}" class="w-16">
           </div>
     `)
+
+
+    // Insert code for when a search was done
   }
 
 
