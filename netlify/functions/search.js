@@ -18,3 +18,48 @@
 //     dateCreated
 //   }
 // ]
+
+let firebase = require('./firebase')
+
+exports.handler = async function(event) {
+  let returnValue = [] // sample only...
+
+    // establish a connection to firebase in memory
+    let db = firebase.firestore()
+
+    // perform a query against firestore for all deals, wait for it to return, store in memory
+    let dealsQuery = await db.collection(`deals`).get()
+    // retrieve the documents from the query
+    let deals = dealsQuery.docs
+
+// loop through the post documents
+for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
+  // get the id from the document
+  let dealId = deals[dealsIndex].id
+
+  // get the data from the document
+  let dealData = deals[dealsIndex].data()
+
+  // perform a query to get the number of likes for this post
+  let likesQuery = await db.collection(`likes`).where(`postId`, `==`, dealId).get()
+
+  // the number of likes is the number of documents returned
+  let numberOfLikes = likesQuery.size
+
+  let postObject = {
+    userName: dealData.userName,
+    imgSrc: dealData.imageUrl,
+    description: dealData.description,
+    cost: dealData.cost,
+    numLikes: numberOfLikes,
+    dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+  }
+
+  // add the Object to the return value
+  returnValue.push(postObject)
+}
+  return {
+    statusCode: 200,
+    body: JSON.stringify(returnValue)
+  }
+}
