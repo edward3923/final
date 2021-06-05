@@ -31,8 +31,8 @@ console.log(`submit clicked`)
   let description = descriptionInput.value
   let cost = costInput.value
   // create the URL for our "create post" lambda function
-  let url = `/.netlify/functions/add_deals?imageUrl=${imageUrl}&description=${description}&cost=${cost}`
-  // let url = `/.netlify/functions/add_deals?imageUrl=${userName}`
+  let url = `/.netlify/functions/add_deal?imageUrl=${imageUrl}&description=${description}&cost=${cost}`
+  // let url = `/.netlify/functions/add_deal?imageUrl=${userName}`
 
    // fetch the URL, wait for the response, store the response in memory
    let response = await fetch(url)
