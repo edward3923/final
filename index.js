@@ -74,10 +74,37 @@ firebase.auth().onAuthStateChanged(async function(user) {
     </table>
     
     `)
-
-
-    // Insert code for when a search was done
   }
+
+  // get a reference to the search button
+  let searchButton = document.querySelector(`.searchbutton`)
+
+  // handle the search button
+  searchButton.addEventListener(`click`, async function(event) {
+    event.preventDefault()
+
+    console.log(`inside the search button code`)
+
+    let searchTermInput = document.querySelector(`#searchbar`)
+  
+    let searchTerm = searchTermInput.value
+
+    console.log(`search term value is ${searchTerm}`)
+    dealsDiv.innerHTML = ""
+    dealsDiv.insertAdjacentHTML(`beforeend`, `
+    <table class="table-fixed border-2 border-transparent w-full" >
+         <tr>
+          <td rowspan ="2" class="w-50 p-4" align="center" valign="center"><img src="https://images.unsplash.com/photo-1620165364791-53757809b0e8?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMXx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-36 h-36"></td>
+          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Description: </span> Description of item</td> 
+          </tr>
+          <tr column span = "2">
+          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Cost: </span>10.99</td>  
+          <td> <button id="like-button"><img src="Like Button.png" class= "w-20"> </button></td>
+          </tr>
+    </table>
+    
+    `)
+  })
 
 
 
