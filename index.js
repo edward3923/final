@@ -62,18 +62,17 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let description = deal.description
     let cost = deal.cost
     dealsDiv.insertAdjacentHTML(`beforeend`, `
-        <div class="md:mt-16 mt-8">
-          <div class="md:mx-0 mx-4 mt-8">
-            <span class="font-bold text-xl">${description}</span>
-          </div>
-
-          <div class="md:mx-0 mx-4 mt-8">
-            <span class="font-bold text-xl">${cost}</span>
-          </div>
-
-          <div class="my-8">
-            <img src="${imageLink}" class="w-16">
-          </div>
+    <table class="table-fixed border-2 border-transparent w-full" >
+         <tr>
+          <td rowspan ="2" class="w-50 p-4" align="center" valign="center"><img src="${imageLink}" class="w-36 h-36"></td>
+          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Description: </span> ${description}</td> 
+          </tr>
+          <tr column span = "2">
+          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Cost: </span>${cost}</td>  
+          <td> <button id="like-button"><img src="Like Button.png" class= "w-20"> </button></td>
+          </tr>
+    </table>
+    
     `)
 
 
