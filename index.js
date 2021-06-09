@@ -61,6 +61,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let imageLink = deal.imgSrc
     let description = deal.description
     let cost = deal.cost
+    let numLikes = deal.numLikes
+    let dealId = deal.id
     dealsDiv.insertAdjacentHTML(`beforeend`, `
     <table class="table-fixed border-2 border-transparent w-full" >
          <tr>
@@ -69,12 +71,37 @@ firebase.auth().onAuthStateChanged(async function(user) {
           </tr>
           <tr column span = "2">
           <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Cost: </span>${cost}</td>  
-          <td> <button id="like-button"><img src="Like Button.png" class= "w-20"> </button></td>
+          <td> <button id="like-button-${dealId}"><img src="Like Button.png" class= "w-20"> </button> ${numLikes} </td>
+          
           </tr>
     </table>
     
     `)
+ // 🔥 Lab - like button
+      // - Create an event listener for the like button of each post
+     // get a reference to the newly created post comment button
+     let likeButton = document.querySelector(`#like-button-${dealId}`)
+     // event listener for the post comment button
+     likeButton.addEventListener(`click`, async function(event) {
+               // ignore the default behavior
+       event.preventDefault()
+               // get a reference to the newly created comment input
+             // get the body of the comment
+       // Build the URL for our posts API
+       let url = `/.netlify/functions/add_like?dealId=${dealId}&userId=${user.uid}`
+               // Fetch the url, wait for a response, store the response in memory
+               let response = await fetch(url)
+                       // refresh the page
+                       location.reload()
+     })
+
+
+
+
   }
+
+      
+     
 
   // get a reference to the search button
   let searchButton = document.querySelector(`.searchbutton`)

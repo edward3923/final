@@ -47,6 +47,7 @@ for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
   let numberOfLikes = likesQuery.size
 
   let postObject = {
+    id: dealId,
     userName: dealData.userName,
     imgSrc: dealData.imageUrl,
     description: dealData.description,
