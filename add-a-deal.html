@@ -1,72 +1,76 @@
 <!-- 
+
 Goal: Kellogg Deals add-a-deal page
+
 Business logic:
-Tasks:
-- Create an empty page that the end user will see if logged out (week 8)
-- Hardcode the HTML that shows the appropriate fields, forms, and button that user can interact with
-- There should be a Submit button that will go back to the main index.html
- - KW Notes: I copied all of "index.html" into here b/c i couldn't get page navigation to work
- Feel free to delete stuff that isn't necessary to move between pages. 
+- Users can use this page to submit the deals they find online
+- Users will fill out various requested information and click on the Submit button
+- Clicking on the Submit button will send all the data to our database and return the user back to the main page
+- Users can also go back to the main page using one of the buttons
+
 -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Final</title>
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css" />
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css" />
+  </head>
 
-<body>
-  <div class="sign-in-or-sign-out"></div>
- 
-  <!-- Put the Firebase config here -->
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
-  <!-- Firebase Auth -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+  <body>
+    <div class="sign-in-or-sign-out"></div>
+  
+    <!-- Put the Firebase config here -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
 
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyCKJoxlZ3hViRPGjaw3JAagojoRHD4GfQc",
-      authDomain: "kiei-451-final-b3fd4.firebaseapp.com",
-      projectId: "kiei-451-final-b3fd4",
-      storageBucket: "kiei-451-final-b3fd4.appspot.com",
-      messagingSenderId: "886508661968",
-      appId: "1:886508661968:web:f5b8e7f6be2b9e7e0942d5"
-    } // replace
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  </script>
-  <script src="add-a-deal.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCKJoxlZ3hViRPGjaw3JAagojoRHD4GfQc",
+        authDomain: "kiei-451-final-b3fd4.firebaseapp.com",
+        projectId: "kiei-451-final-b3fd4",
+        storageBucket: "kiei-451-final-b3fd4.appspot.com",
+        messagingSenderId: "886508661968",
+        appId: "1:886508661968:web:f5b8e7f6be2b9e7e0942d5"
+      }
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="add-a-deal.js"></script>
 
-  <!-- Hardcoded styles -->
-  <div>
-    <h1 class="text-xl bg-blue-800 py-4 px-8">
-
-      <div class="grid grid-cols-2">
-        <div class="grid justify-items-start">
-          <form>
-            <button id="submitbutton" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Submit</button>
-          </form>
-        </div>
-        <div class="grid justify-items-end">
-          <a href="index.html"><button id="goBackButton" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Back to Main Page</button></a>
-        </div>
-      </div>
-    </h1>
-  </div>
-    <div class="text-3xl my-12 text-center text-purple-800">Kellogg Deals</div>
+    <!-- Hardcoded styles -->
+    <!-- Created a banner up top with the Submit and Back buttons -->
     <div>
-      <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL here" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-      <input type="text" id="description" name="description" placeholder="Enter your Description here" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-      <input type="text" id="cost" name="cost" placeholder="Enter Cost here" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-
+      <h1 class="text-xl bg-blue-800 py-4 px-8">
+        <div class="grid grid-cols-2">
+          <div class="grid justify-items-start">
+            <form>
+              <button id="submitbutton" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Submit</button>
+            </form>
+          </div>
+          <div class="grid justify-items-end">
+            <a href="index.html"><button id="goBackButton" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Back to Main Page</button></a>
+          </div>
+        </div>
+      </h1>
     </div>
-</body>
 
+    <!-- Start of page contents -->
+    <div class="text-3xl my-12 text-center text-purple-800">Kellogg Deals</div>
+      <div>
+        <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL here" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+        <input type="text" id="description" name="description" placeholder="Enter your Description here" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+        <input type="text" id="cost" name="cost" placeholder="Enter Cost here" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+      </div>
+    </div>
+  </body>
 </html>

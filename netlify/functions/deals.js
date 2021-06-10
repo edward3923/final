@@ -1,17 +1,16 @@
 // Goal: Kellogg Deals API that returns all the data we want in JSON format
 //
 // Business logic:
-// - Database should probably have 2 tables - likes table and deals table
-// - In the likes table, it should store the User UID and postId
-// - In the deals table, it should store the dateCreated, userName, imgSrc, description, cost, and numLikes
-//
-// Tasks:
-// - Write an API endpiont, using lambda function, that returns information on all the available deals (see courses.js in hw7)
-// - I think the structure should look something like:
-// Deals [
+// - Database has 2 tables - likes table and deals table
+// - In the likes table, it stores the User UID and postId
+// - In the deals table, it stores the dateCreated, userName, imageUrl, description, and cost
+// - This API endpoint will return information on all the available deals
+// - Structure will look like:
+// Deals[
 //   {
+//     dealId
 //     userName
-//     imgSrc
+//     imageUrl
 //     description
 //     cost
 //     numLikes
@@ -19,24 +18,24 @@
 //   }
 // ]
 
+// allows us to use firebase
 let firebase = require('./firebase')
 
+// /.netlify/functions/deals
 exports.handler = async function(event) {
-  let returnValue = [] // sample only...
+  // define an empty Array to hold the return value from our lambda
+  let returnValue = []
 
-    // establish a connection to firebase in memory
-    let db = firebase.firestore()
+  // establish a connection to firebase in memory
+  let db = firebase.firestore()
 
-    // perform a query against firestore for all deals, wait for it to return, store in memory
-    let dealsQuery = await db.collection(`deals`).get()
-    // retrieve the documents from the query
-    let deals = dealsQuery.docs
+  // perform a query against firestore for all deals, wait for it to return, store in memory
+  let dealsQuery = await db.collection(`deals`).get()
 
-console.log(`timestamp the regular way is ${firebase.firestore.FieldValue.serverTimestamp()}`)
-console.log(Date(firebase.firestore.FieldValue.serverTimestamp()))
-console.log(new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString())
+  // retrieve the documents from the query
+  let deals = dealsQuery.docs
 
-// loop through the post documents
+// loop through the deals documents
 for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
   // get the id from the document
   let dealId = deals[dealsIndex].id
@@ -63,6 +62,8 @@ for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
   // add the Object to the return value
   returnValue.push(postObject)
 }
+
+  // return value of our lambda
   return {
     statusCode: 200,
     body: JSON.stringify(returnValue)

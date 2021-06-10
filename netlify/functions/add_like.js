@@ -1,34 +1,32 @@
-// Goal: Kellogg deals - adding a like API
+// Goal: Kellogg Deals - adding a like API
 //
 // Business logic:
-// system should pass in two variables: postId and userUid
-
-// Tasks:
-// Look inside the database to see whether the postId and userUid pair exists
-// If doesn't exist, create the entry
+// - System should pass in two variables: postId and userUid
+// - Looks inside the database to see whether the postId and userUid pair exists
+// - If entry doesn't exist, create an entry
 
 // allows us to use firebase
 let firebase = require(`./firebase`)
 
+// /.netlify/functions/add_like?dealId=${dealId}&userId=${user.uid}
 exports.handler = async function(event) {
 
-  // write the recipe and the implementation
-
+  // get the querystring parameters and store in memory
   let userId = event.queryStringParameters.userId
   let dealId = event.queryStringParameters.dealId
 
- // console.log(userName)
+  // establish a connection to firebase in memory
   let db = firebase.firestore()
 
+  // query for an existing like, wait for it to return, store the query in memory
   let likesQuery = await db.collection(`likes`).where(`postId`, `==`, dealId).where(`userUid`, `==`, userId).get()
 
- // console.log(likesQuery)
 
+  // if there isn't already a like for the post/user combination, create one
   if (likesQuery.size == 0){
     db.collection(`likes`).add({
       postId: dealId,
       userUid: userId,
-     // created: firebase.firestore.FieldValue.serverTimestamp()
     })
   }
 
