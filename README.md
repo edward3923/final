@@ -2,7 +2,7 @@
 
 ### KIEI-451 Spring 2021
 
-Live Internet URL:
+Live Internet URL: https://lucid-pare-d10f49.netlify.app/
 
 #### Project Description:
 - Kellogg Deals is a site where Kellogg students can come to see the deals that other fellow students submitted once they are logged in.
@@ -34,3 +34,6 @@ Live Internet URL:
 
 - Miscellaneous
     - [x] Deployed live and available publicly on the Internet using Netlify. Public URL listed above.
+
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2484c68b-78a1-4f66-9a50-1a8706becfe3/deploy-status)](https://app.netlify.com/sites/lucid-pare-d10f49/deploys)
