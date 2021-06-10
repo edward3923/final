@@ -24,7 +24,7 @@ exports.handler = async function(event) {
 
   // if there isn't already a like for the post/user combination, create one
   if (likesQuery.size == 0){
-    db.collection(`likes`).add({
+    await db.collection(`likes`).add({
       postId: dealId,
       userUid: userId,
     })

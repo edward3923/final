@@ -19,7 +19,7 @@ exports.handler = async function(event) {
   let db = firebase.firestore()
 
   // create a new post
-  db.collection(`deals`).add({
+  await db.collection(`deals`).add({
     imageUrl: imageUrl,
     description: description,
     cost: cost,
