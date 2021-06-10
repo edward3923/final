@@ -32,23 +32,21 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let description = descriptionInput.value
       let cost = costInput.value
 
-      console.log(`testing the data`)
-      console.log(`image URL is ${imageUrl}`)
-
+      // if the data isn't valid, return back to the main page without inserting the data
       if (imageUrl == `` || description == `` || cost == ``) {
-        console.log(`Invalid data. Returning to main page.`)
         document.location.href = `index.html`
       }
+      // if the data has been filled out, proceed with adding the data into the database
+      else {
+        // build the URL for our "add_deal" lambda function
+        let url = `/.netlify/functions/add_deal?imageUrl=${imageUrl}&description=${description}&cost=${cost}&userName=${user.displayName}`
 
-      // build the URL for our "add_deal" lambda function
-      let url = `/.netlify/functions/add_deal?imageUrl=${imageUrl}&description=${description}&cost=${cost}&userName=${user.displayName}`
+        // fetch the URL, wait for the response, store the response in memory
+        let response = await fetch(url)
 
-      // fetch the URL, wait for the response, store the response in memory
-      let response = await fetch(url)
-
-      // redirect to the main site
-      document.location.href = `index.html`
-      
+        // redirect to the main site
+        document.location.href = `index.html`
+      }
     })
   }
   else {
