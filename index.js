@@ -155,10 +155,30 @@ firebase.auth().onAuthStateChanged(async function(user) {
           </table>
           
           `)
+
+          // Handle the like functionality here
+          // get a reference to the like button
+          let likeButton2 = document.querySelector(`#like-button-${dealId}`)
+
+          console.log(likeButton2)
+
+          // event listener for the like button
+          likeButton2.addEventListener(`click`, async function(event) {
+            // ignore the default behavior
+            event.preventDefault()
+
+            // Build the URL for our likes API
+            let url = `/.netlify/functions/add_like?dealId=${dealId}&userId=${user.uid}`
+            
+            // Fetch the url, wait for a response, store the response in memory
+            let response = await fetch(url)
+
+            // refresh the page
+            location.reload()
+          })
         }
       }
     })
-
   }
   
   else {
