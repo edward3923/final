@@ -11,6 +11,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
   // check to see if user is logged-in (i.e. user exists)
   if (user) {
     // Signed in
+    console.log(user)
 
     // get a reference to the submit button
     let submitButton = document.querySelector(`#submitbutton`)
@@ -30,6 +31,14 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let imageUrl = imageUrlInput.value
       let description = descriptionInput.value
       let cost = costInput.value
+
+      console.log(`testing the data`)
+      console.log(`image URL is ${imageUrl}`)
+
+      if (imageUrl == `` || description == `` || cost == ``) {
+        console.log(`Invalid data. Returning to main page.`)
+        document.location.href = `index.html`
+      }
 
       // build the URL for our "add_deal" lambda function
       let url = `/.netlify/functions/add_deal?imageUrl=${imageUrl}&description=${description}&cost=${cost}&userName=${user.displayName}`

@@ -18,7 +18,7 @@ Live Internet URL:
 ##### Requirements / Rubric:
 - Frontend
     - [x] Web Design properly structured with valid HTML and styling applied using Tailwind CSS framework
-    - [x] User Authentication working
+    - [x] User Authentication is working properly
     - [x] Code makes 3 backend API requests using relevant DOM manipulation and event listeners in response to user input and data
         1. deals.js will read the data from the database
         2. add_deal.js will write a deal to the database
