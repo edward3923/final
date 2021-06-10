@@ -11,7 +11,7 @@
 firebase.auth().onAuthStateChanged(async function(user) {
     if (user) {
       // Signed in
-      console.log('on add deal page')
+      //console.log('on add deal page')
 
 // get a reference to the submit button
 
@@ -20,7 +20,7 @@ let submitButton = document.querySelector(`#submitbutton`)
 // handle the submit button
 submitButton.addEventListener(`click`, async function(event) {
 // event.preventDefault()
-console.log(`submit clicked`)
+//console.log(`submit clicked`)
   
   let imageUrlInput = document.querySelector(`#imageUrl`)
   let descriptionInput = document.querySelector(`#description`)
@@ -31,13 +31,13 @@ console.log(`submit clicked`)
   let description = descriptionInput.value
   let cost = costInput.value
   // create the URL for our "create post" lambda function
-  let url = `/.netlify/functions/add_deal?imageUrl=${imageUrl}&description=${description}&cost=${cost}`
+  let url = `/.netlify/functions/add_deal?imageUrl=${imageUrl}&description=${description}&cost=${cost}&userName=${user.displayName}`
   // let url = `/.netlify/functions/add_deal?imageUrl=${userName}`
 
    // fetch the URL, wait for the response, store the response in memory
    let response = await fetch(url)
 
-   // redirect to the add-a-deal site
+   // redirect to the main site
   document.location.href = `index.html`
   
   })

@@ -12,7 +12,7 @@
 firebase.auth().onAuthStateChanged(async function(user) {
   if (user) {
     // Signed in
-    console.log('signed in')
+    //console.log('signed in')
 
   // Build the markup for the sign-out button and set the HTML in the header
   document.querySelector(`.sign-in-or-sign-out`).innerHTML = `
@@ -42,6 +42,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // Build the URL for our posts API
   })
 
+
   let url = `/.netlify/functions/deals`
 
   // Fetch the url, wait for a response, store the response in memory
@@ -51,6 +52,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
   let json = await response.json()
 
   let dealsDiv = document.querySelector(`.deals`)
+
+  console.log(json)
 
   // Loop through the JSON data, for each Object representing a post:
   for (let i=0; i < json.length; i++) {
@@ -63,17 +66,23 @@ firebase.auth().onAuthStateChanged(async function(user) {
     let cost = deal.cost
     let numLikes = deal.numLikes
     let dealId = deal.id
+    let dealCreated = deal.dateCreated
+    let userName = deal.userName
     dealsDiv.insertAdjacentHTML(`beforeend`, `
-    <table class="table-fixed border-2 border-transparent w-full" >
-         <tr>
-          <td rowspan ="2" class="w-50 p-4" align="center" valign="center"><img src="${imageLink}" class="w-36 h-36"></td>
-          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Description: </span> ${description}</td> 
-          </tr>
-          <tr column span = "2">
-          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Cost: </span>${cost}</td>  
-          <td> <button id="like-button-${dealId}"><img src="Like Button.png" class= "w-20"> </button> ${numLikes} </td>
-          
-          </tr>
+    <table class="table-fixed m-4 w-3/4" >
+        <tr>
+          <td rowspan ="3" class="p-4" align="center" valign="center"><img src="${imageLink}" class="w-36 h-36"></td>
+          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Description: </span> ${description}</td>
+          <td class="w-1/4 pr-16" align="left" valign="center"> <span class= "font-bold" >Submitted on: </span> ${dealCreated}</td>
+        </tr>
+        <tr>
+          <td align="left" valign="center"> <span class= "font-bold" >Cost: </span>${cost}</td> 
+        </tr>
+        <tr column span = "2">
+          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Submitted by: </span> ${userName}</td>
+          <td class="w-1/2"> <button id="like-button-${dealId}"><img src="Like Button.png" class= "w-20"> </button> ${numLikes} </td>
+        </tr>
+        <hr size="8" width="90%" color="black">
     </table>
     
     `)
@@ -110,13 +119,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
   searchButton.addEventListener(`click`, async function(event) {
     event.preventDefault()
 
-    console.log(`inside the search button code`)
+    //console.log(`inside the search button code`)
 
     let searchTermInput = document.querySelector(`#searchbar`)
   
     let searchTerm = searchTermInput.value
 
-    console.log(`search term value is ${searchTerm}`)
+    //console.log(`search term value is ${searchTerm}`)
     dealsDiv.innerHTML = ""
 
     for (let i=0; i < json.length; i++) {
@@ -127,19 +136,28 @@ firebase.auth().onAuthStateChanged(async function(user) {
       let imageLink = deal.imgSrc
       let description = deal.description
       let cost = deal.cost
+      let numLikes = deal.numLikes
+      let dealId = deal.id
+      let dealCreated = deal.dateCreated
+      let userName = deal.userName
 
-      if (searchTerm == description || searchTerm == cost || searchTerm == imageLink) {
+      if (searchTerm == description || searchTerm == cost) {
         dealsDiv.insertAdjacentHTML(`beforeend`, `
-          <table class="table-fixed border-2 border-transparent w-full" >
+        <table class="table-fixed m-4 w-3/4" >
           <tr>
-          <td rowspan ="2" class="w-50 p-4" align="center" valign="center"><img src="${imageLink}" class="w-36 h-36"></td>
-          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Description: </span> ${description}</td> 
+            <td rowspan ="3" class="p-4" align="center" valign="center"><img src="${imageLink}" class="w-36 h-36"></td>
+            <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Description: </span> ${description}</td>
+            <td class="w-1/4 pr-16" align="left" valign="center"> <span class= "font-bold" >Submitted on: </span> ${dealCreated}</td>
+          </tr>
+          <tr>
+            <td align="left" valign="center"> <span class= "font-bold" >Cost: </span>${cost}</td> 
           </tr>
           <tr column span = "2">
-          <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Cost: </span>${cost}</td>  
-          <td> <button id="like-button"><img src="Like Button.png" class= "w-20"> </button></td>
+            <td class="w-1/2" align="left" valign="center"> <span class= "font-bold" >Submitted by: </span> ${userName}</td>
+            <td class="w-1/2"> <button id="like-button-${dealId}"><img src="Like Button.png" class= "w-20"> </button> ${numLikes} </td>
           </tr>
-          </table>
+          <hr size="8" width="90%" color="black">
+        </table>
         
         `)
       }
@@ -151,7 +169,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
   } else {
     // Signed out
-    console.log('signed out')
+    // console.log('signed out')
 
     // Initializes FirebaseUI Auth
     let ui = new firebaseui.auth.AuthUI(firebase.auth())

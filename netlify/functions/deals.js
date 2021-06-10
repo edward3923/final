@@ -32,6 +32,10 @@ exports.handler = async function(event) {
     // retrieve the documents from the query
     let deals = dealsQuery.docs
 
+console.log(`timestamp the regular way is ${firebase.firestore.FieldValue.serverTimestamp()}`)
+console.log(Date(firebase.firestore.FieldValue.serverTimestamp()))
+console.log(new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString())
+
 // loop through the post documents
 for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
   // get the id from the document
@@ -53,7 +57,7 @@ for (let dealsIndex=0; dealsIndex < deals.length; dealsIndex++) {
     description: dealData.description,
     cost: dealData.cost,
     numLikes: numberOfLikes,
-    dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+    dateCreated: dealData.dateCreated
   }
 
   // add the Object to the return value

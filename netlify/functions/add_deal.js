@@ -14,6 +14,7 @@ exports.handler = async function(event) {
   let imageUrl = event.queryStringParameters.imageUrl
   let description = event.queryStringParameters.description
   let cost = event.queryStringParameters.cost
+  let userName = event.queryStringParameters.userName
  
   // establish a connection to firebase in memory
 
@@ -24,7 +25,9 @@ let db = firebase.firestore()
 db.collection(`deals`).add({
   imageUrl: imageUrl,
   description: description,
-  cost: cost
+  cost: cost,
+  userName: userName,
+  dateCreated: new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString()
 })
 
   return {
