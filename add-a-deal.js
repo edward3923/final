@@ -13,6 +13,23 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // Signed in
     console.log(user)
 
+    // Build the markup for the sign-out button and set the HTML in the header
+    document.querySelector(`.sign-in-or-sign-out`).innerHTML = `
+    <button class="text-pink-500 underline sign-out">Sign Out</button>
+    `
+
+    // get a reference to the sign out button
+    let signOutButton = document.querySelector(`.sign-in-or-sign-out`)
+
+    // handle the sign out button click
+    signOutButton.addEventListener(`click`, function(event) {
+      // sign out of firebase authentication
+      firebase.auth().signOut()
+
+      // redirect to the home page
+      document.location.href = `index.html`
+    })
+
     // get a reference to the submit button
     let submitButton = document.querySelector(`#submitbutton`)
 
@@ -52,5 +69,19 @@ firebase.auth().onAuthStateChanged(async function(user) {
   else {
     // Signed out
     console.log('signed out')
+    
+    // Initializes FirebaseUI Auth
+    let ui = new firebaseui.auth.AuthUI(firebase.auth())
+
+    // FirebaseUI configuration
+    let authUIConfig = {
+      signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+      ],
+      signInSuccessUrl: 'index.html'
+    }
+
+    // Starts FirebaseUI Auth
+    ui.start('.sign-in-or-sign-out', authUIConfig)
   }
 })
