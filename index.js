@@ -4,7 +4,8 @@
 // - Will show an empty index.html page if logged out, and allow user to see data if logged in
 // - While logged in, a user should see a "Add a Deal" button that will lead to a the site add-a-deal.html
 // - Will retrieve JSON data from deals.js and will display on the website
-//
+// - Can search for a deal (must be an exact string match) and can like from that screen
+
 
 // standard event listener for Firebase auth
 firebase.auth().onAuthStateChanged(async function(user) {

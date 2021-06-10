@@ -4,7 +4,7 @@
 // - Create Javascript code that will show an empty add-a-deal.html page if logged out, and allow user to see data if logged in
 // - While logged in, a user should see three fields he/she can fill out
 // - After filling in the form, the user can click on the "Submit" button and will go back to the index.html page.
-//
+// - If there are any fields that are empty (invalid submission), it will be ignored and go back to the main screen
 
 // standard event listener for Firebase auth
 firebase.auth().onAuthStateChanged(async function(user) {
@@ -69,7 +69,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
   else {
     // Signed out
     console.log('signed out')
-    
+
     // Initializes FirebaseUI Auth
     let ui = new firebaseui.auth.AuthUI(firebase.auth())
 
